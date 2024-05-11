@@ -27,14 +27,14 @@ object DataFrame1_Playground extends App {
     )
   )
 
-  var options = Map(("inferSchema","true"))
-  val internal.personalsDataFrame = spark.read
+  var options = Map(("inferSchema","false"))
+  val personalsDataFrame = spark.read
     .format("csv")
     .schema(newStructTypeForPersonal)
     .options(options)
     .csv("src/main/resources/data/internal.personals.csv")
 
-  var seqTaked10Rows = internal.personalsDataFrame
+  var seqTaked10Rows = personalsDataFrame
     .tail(10)
     .toSeq
     .map(row=>row.toSeq)

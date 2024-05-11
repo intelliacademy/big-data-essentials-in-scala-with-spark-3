@@ -3,5 +3,6 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/sql/db.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/personals.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/scala/dataframes/DataSources_Playground.scala" dialect="GenericSQL" />
   </component>
 </project>
