@@ -1,11 +1,26 @@
 package com.intellibucket.lessons
 package dataframes
 
+import org.apache.spark.sql.types.{DateType, DoubleType, StringType, StructField, StructType}
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
 object DataFrame2_Playground extends App {
 
   println("DataFrames")
+
+  var carsSchema = StructType(
+    Array(
+      StructField("ID",StringType),
+      StructField("Ad",StringType),
+      StructField("Soyad",StringType),
+      StructField("Elektron Unvan",StringType),
+      StructField("Cins",StringType),
+      StructField("Dogum gunu",DateType),
+      StructField("Sheher",StringType),
+      StructField("Unvan",StringType),
+      StructField("Emek haqqi",DoubleType),
+    )
+  )
 
   val spark = SparkSession.builder()
     .appName("Spark Playground")
@@ -18,13 +33,18 @@ object DataFrame2_Playground extends App {
     .options(Map(
       "inferSchema"->"true",
       "mode" -> "failFast",
-      "path"->"src/main/resources/data/cars.json"
+      "path"->"src/main/resources/data/cars.json",
+      "dateFormat"->"YYYY-MM-DD",
+      "allowSingleQuotes"->"true",
+      "compression"->"uncompressed"
     ))
     .load()
 
+  carsDF.take(10).foreach(println)
+
   carsDF.write
-    .format("csv")
     .mode(SaveMode.Overwrite)
-    .save("src/main/resources/data/cars")
+    .parquet("src/main/resources/data/cars.cars")
+
 
 }
